@@ -16,12 +16,25 @@ class Article extends React.Component {
         <div className="article-meta-details">
           <small>Created by: {this.props.author},
                   &nbsp;
-                <Timestamp time={this.props.created_at} precision={3} />,
-                last updated: <Timestamp time={this.props.updated_at} precision={3} /> 
+                <Timestamp time={this.props.created_at} precision={4} />,
+                last updated: <Timestamp time={this.props.updated_at} precision={4} /> 
           </small>
         </div>
       </React.Fragment>
     );
+  }
+
+  componentDidMount() {
+    let self = this;
+    setInterval(function() { self.forceUpdate() }, 1000)
+    // will force the state of the component to update during the mounting
+  }
+
+  componentWillUnmount() {
+    if (this._timer) {
+      clearInterval(this._timer);
+      this._timer = null;
+    }
   }
 }
 
